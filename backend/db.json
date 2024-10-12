@@ -1,0 +1,40 @@
+{
+    "events": {
+        "1": {
+            "event_name": "Butterfly 100M",
+            "event_category": "Swimming",
+            "start_time": "2022-12-17 13:00:00",
+            "end_time": "2022-12-17 14:00:00"
+        },
+        "2": {
+            "event_name": "Backstroke 100M",
+            "event_category": "Swimming",
+            "start_time": "2022-12-17 13:30:00",
+            "end_time": "2022-12-17 14:30:00"
+        },
+        "3": {
+            "event_name": "Freestyle 400M",
+            "event_category": "Swimming",
+            "start_time": "2022-12-17 15:00:00",
+            "end_time": "2022-12-17 16:00:00"
+        },
+        "4": {
+            "event_name": "High Jump",
+            "event_category": "Athletics",
+            "start_time": "2022-12-17 13:00:00",
+            "end_time": "2022-12-17 14:00:00"
+        },
+        "5": {
+            "event_name": "Triple Jump",
+            "event_category": "Athletics",
+            "start_time": "2022-12-17 16:00:00",
+            "end_time": "2022-12-17 17:00:00"
+        },
+        "6": {
+            "event_name": "Long Jump",
+            "event_category": "Athletics",
+            "start_time": "2022-12-17 17: 00: 00",
+            "end_time": "2022-12-17 18:00:00"
+        }
+    }
+}
