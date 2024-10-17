@@ -2,10 +2,12 @@ from flask import Flask, jsonify, request
 from pymongo import MongoClient
 import json
 from datetime import datetime
+from flask_cors import CORS
 
 # Flask constructor takes the name of 
 # current module (__name__) as argument.
 app = Flask(__name__)
+CORS(app)
 
 client = MongoClient("mongodb://localhost:27017/")
 db = client.mydatabase
@@ -59,10 +61,9 @@ def login_user():
         return jsonify({"error": "User not found"}), 404
 
 
-@app.route('/get_registered_events', methods=['POST'])
-def get_registered_events():
-    user_data = request.json
-    user_id = user_data.get('userId')
+@app.route('/<userId>/get_registered_events', methods=['GET'])
+def get_registered_events(userId):
+    user_id = userId
     if not user_id:
         return jsonify({"error": "userId is required"}), 400
     user = users_collection.find_one({"userId": user_id})
@@ -71,10 +72,10 @@ def get_registered_events():
     else:
         return jsonify({"error": "User not found"}), 404
 
-@app.route('/register_event', methods=['POST'])
-def register_event():
+@app.route('/<userId>/register_event', methods=['POST'])
+def register_event(userId):
     request_data = request.json
-    user_id = request_data.get('userId')
+    user_id = userId
     event_id = request_data.get('eventId')
     if not user_id or not event_id:
         return jsonify({"error": "userId and eventId are required"}), 400
@@ -108,12 +109,12 @@ def register_event():
         {"$push": {"events_registered": event_details}}
     )
 
-    return jsonify({"message": f"User {user_id} registered for event {event_id} successfully!"}), 200
+    return jsonify({"message": "Registered for event {event_id} successfully!"}), 200
     
-@app.route('/unregister_event', methods=['POST'])
-def unregister_event():
+@app.route('/<userId>/unregister_event', methods=['POST'])
+def unregister_event(userId):
     request_data = request.json
-    user_id = request_data.get('userId')
+    user_id = userId
     event_id = request_data.get('eventId')
     if not user_id or not event_id:
         return jsonify({"error": "userId and eventId are required"}), 400
@@ -130,7 +131,7 @@ def unregister_event():
             flag = 1
             break
     if(flag):
-        return jsonify({"message": f"User {user_id} unregistered from event {event_id} successfully!"}), 200
+        return jsonify({"message": "Removed from event {event_id} successfully!"}), 200
     else:
         return jsonify({"error": "Event not registered for this user"}), 409
         
