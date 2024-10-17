@@ -4,8 +4,6 @@ import json
 from datetime import datetime
 from flask_cors import CORS
 
-# Flask constructor takes the name of 
-# current module (__name__) as argument.
 app = Flask(__name__)
 CORS(app)
 
@@ -17,16 +15,10 @@ users_collection = db.users
 if events_collection.count_documents({}) == 0:
     with open('db.json', 'r') as file:
         data = json.load(file)
-    # Insert the events into the collection
     for event_id, event_details in data['events'].items():
-        # Insert each event document into the collection
         events_collection.insert_one({"_id": event_id, **event_details})
 
-# The route() function of the Flask class is a decorator, 
-# which tells the application which URL should call 
-# the associated function.
 @app.route('/')
-# ‘/’ URL is bound with setup_db() function.
 def setup_db():
     print("Sports backend service:",)
     return {}
@@ -146,7 +138,4 @@ def get_events():
     return jsonify(events_list)
 
 if __name__ == '__main__':
-
-    # run() method of Flask class runs the application 
-    # on the local development server.
     app.run()
